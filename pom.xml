@@ -12,6 +12,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <eclipse.workspace>${user.home}/workspaces/redundant-rules</eclipse.workspace>
   </properties>
 
   <dependencies>
