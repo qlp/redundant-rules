@@ -3,10 +3,13 @@ package com.darrep.redundantrules.model;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
-public class Rule {
+public class Rule
+implements Iterable<Map.Entry<Variable, Set<Value>>> {
 	private Map<Variable, Set<Value>> valuesByVariable = new HashMap<>();
 	
 	public void add(Value value) {
@@ -36,6 +39,11 @@ public class Rule {
  		}
 		
 		return result;
+	}
+
+	@Override
+	public Iterator<Entry<Variable, Set<Value>>> iterator() {
+		return valuesByVariable.entrySet().iterator();
 	}
 	
 	@Override

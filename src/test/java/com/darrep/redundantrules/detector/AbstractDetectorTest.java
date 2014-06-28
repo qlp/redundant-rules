@@ -2,6 +2,7 @@ package com.darrep.redundantrules.detector;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -9,35 +10,65 @@ import com.darrep.redundantrules.generator.SimpleRuleListGenerator;
 import com.darrep.redundantrules.generator.SimpleVariableListGenerator;
 import com.darrep.redundantrules.model.Rule;
 import com.darrep.redundantrules.model.RuleList;
-import com.darrep.redundantrules.model.VariableList;
 
 public abstract class AbstractDetectorTest 
 {
-    private static final int NUMBER_OF_VARIABLES = 10;
-    private static final int DOMAIN_SIZE = 100;
-    private static final int NUMBER_OF_RULES = 1000;
-    
-	private final RedundantRuleDetector detector;
+    private static final int SMALL_NUMBER_OF_VARIABLES = 5;
+    private static final int SMALL_DOMAIN_SIZE = 5;
+    private static final int SMALL_NUMBER_OF_RULES = 5;
+
+    private static final int MEDIUM_NUMBER_OF_VARIABLES = 5;
+    private static final int MEDIUM_DOMAIN_SIZE = 10;
+    private static final int MEDIUM_NUMBER_OF_RULES = 10;
+
+    private static final int LARGE_NUMBER_OF_VARIABLES = 10;
+    private static final int LARGE_DOMAIN_SIZE = 100;
+    private static final int LARGE_NUMBER_OF_RULES = 1000;
+
+	private RedundantRuleDetector detector;
 	
-    private static RuleList ruleList;
+    private static RuleList largeRuleList;
+    private static RuleList mediumRuleList;
+    private static RuleList smallRuleList;
     
     @BeforeClass
     public static void initRules() {
-    	VariableList variableList = SimpleVariableListGenerator.get().generate(NUMBER_OF_VARIABLES, DOMAIN_SIZE);
-        ruleList = SimpleRuleListGenerator.get().generate(variableList, NUMBER_OF_RULES);
+        smallRuleList = SimpleRuleListGenerator.get().generate(
+        	SimpleVariableListGenerator.get().generate(SMALL_NUMBER_OF_VARIABLES, SMALL_DOMAIN_SIZE),
+        	SMALL_NUMBER_OF_RULES);
+
+        mediumRuleList = SimpleRuleListGenerator.get().generate(
+        	SimpleVariableListGenerator.get().generate(MEDIUM_NUMBER_OF_VARIABLES, MEDIUM_DOMAIN_SIZE),
+        	MEDIUM_NUMBER_OF_RULES);
+
+        largeRuleList = SimpleRuleListGenerator.get().generate(
+        	SimpleVariableListGenerator.get().generate(LARGE_NUMBER_OF_VARIABLES, LARGE_DOMAIN_SIZE),
+        	LARGE_NUMBER_OF_RULES);
     }
     
-    public AbstractDetectorTest(RedundantRuleDetector detector)
-    {
-        this.detector = detector;
+    @Before
+    public void before() {
+    	detector = newDetector();
     }
     
     @Test(timeout=10000)
-    public void testWithinTime() {
-    	detectRundantRules();
+    public void testWithinTimeWithSmallRuleList() {
+    	detectRundantRules(smallRuleList);
+    }
+    
+    @Test(timeout=10000)
+    public void testWithinTimeWithMediumRuleList() {
+    	detectRundantRules(mediumRuleList);
+    }
+    
+    @Test(timeout=10000)
+    public void testWithinTimeWithLargeRuleList() {
+    	detectRundantRules(largeRuleList);
     }
 
-    protected List<Rule> detectRundantRules() {
+    protected List<Rule> detectRundantRules(RuleList ruleList) {
     	return detector.detectRundantRules(ruleList);
     }
+    
+    protected abstract RedundantRuleDetector newDetector();
 }

@@ -33,5 +33,19 @@
       <version>4.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>jdd</groupId>
+      <artifactId>net.sf.javabdd</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/jdd.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>javabdd</groupId>
+      <artifactId>javabdd</artifactId>
+      <version>1.0b2</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/javabdd-1.0b2.jar</systemPath>
+    </dependency>
   </dependencies>
 </project>

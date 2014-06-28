@@ -1,9 +1,11 @@
 package com.darrep.redundantrules.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class RuleList {
+public class RuleList 
+implements Iterable<Rule> {
 	private List<Rule> rules = new ArrayList<>();
 	
 	public void add(Rule rule) {
@@ -20,6 +22,10 @@ public class RuleList {
 		assert index >= 0 && index < rules.size();
 		
 		return rules.get(index);
+	}
+	
+	public Iterator<Rule> iterator() {
+		return rules.iterator();
 	}
 	
 	@Override
