@@ -14,16 +14,6 @@ implements Iterable<Rule> {
 		rules.add(rule);
 	}
 	
-	public int size() {
-		return rules.size();
-	}
-	
-	public Rule getRule(int index) {
-		assert index >= 0 && index < rules.size();
-		
-		return rules.get(index);
-	}
-	
 	public Iterator<Rule> iterator() {
 		return rules.iterator();
 	}

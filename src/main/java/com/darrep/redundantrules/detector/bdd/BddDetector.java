@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import net.sf.javabdd.BDD;
 import net.sf.javabdd.BDDFactory;
@@ -14,7 +13,7 @@ import com.darrep.redundantrules.detector.RedundantRuleDetector;
 import com.darrep.redundantrules.model.Rule;
 import com.darrep.redundantrules.model.RuleList;
 import com.darrep.redundantrules.model.Value;
-import com.darrep.redundantrules.model.Variable;
+import com.darrep.redundantrules.model.ValueList;
 
 public class BddDetector
 implements RedundantRuleDetector {
@@ -22,7 +21,7 @@ implements RedundantRuleDetector {
 	private static final int NUMBER_OF_NODES = 10 * 1024 * 1024;
 	private static final double CACHE_SIZE_RATIO = 0.1;
 	private static final int CACHE_SIZE = (int)(NUMBER_OF_NODES * CACHE_SIZE_RATIO);
-	private static final int VARIABLE_GROWTH_COUNT = 10;
+	private static final int BDD_VARIABLE_COUNT_GROWTH = 10;
 
 	private BDDFactory factory = JFactory.init(NUMBER_OF_NODES, CACHE_SIZE);
 	private Map<Value, BDD> bddForValue = new HashMap<>();
@@ -36,10 +35,10 @@ implements RedundantRuleDetector {
      		
     		BDD bddRule = null;
     		
-    		for (Map.Entry<Variable, Set<Value>> valuesForVariable : rule) {
+    		for (ValueList valueList : rule) {
         		BDD bddVariable = null;
   
-        		for (Value value : valuesForVariable.getValue()) {
+        		for (Value value : valueList) {
         			BDD bddValue = bddValueForValue(value);
         			
     				if (bddVariable != null) {
@@ -85,7 +84,7 @@ implements RedundantRuleDetector {
 		
 		if (bddValue == null) {
 			if (factory.varNum() == bddForValue.size()) {
-				factory.extVarNum(VARIABLE_GROWTH_COUNT);
+				factory.extVarNum(BDD_VARIABLE_COUNT_GROWTH);
 			}
 			
 			bddValue = factory.ithVar(bddForValue.size());

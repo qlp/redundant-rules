@@ -1,53 +1,35 @@
 package com.darrep.redundantrules.model;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 
 public class Rule
-implements Iterable<Map.Entry<Variable, Set<Value>>> {
-	private Map<Variable, Set<Value>> valuesByVariable = new HashMap<>();
+implements Iterable<ValueList> {
+	private Map<Variable, ValueList> valueListByVariable = new HashMap<>();
 	
 	public void add(Value value) {
 		assert value != null;
 		
-		Set<Value> valuesOfVariable = valuesByVariable.get(value.getVariable());
+		Variable variable = value.getVariable();
+		ValueList valueList = valueListByVariable.get(variable);
 		
-		if (valuesOfVariable == null) {
-			valuesOfVariable = new HashSet<>();
+		if (valueList == null) {
+			valueList = new ValueList(variable);
 			
-			valuesByVariable.put(value.getVariable(), valuesOfVariable);
+			valueListByVariable.put(variable, valueList);
 		}
 		
-		valuesOfVariable.add(value);
+		valueList.addValue(value);
 	}
 	
-	public Set<Value> getValueOfVariable(Variable variable) {
-		assert variable != null;
-		
-		Set<Value> values = valuesByVariable.get(variable);
-		
-		Set<Value> result;
-		if (values == null) {
-			result = Collections.emptySet();
- 		} else {
- 			result = Collections.unmodifiableSet(values);
- 		}
-		
-		return result;
-	}
-
 	@Override
-	public Iterator<Entry<Variable, Set<Value>>> iterator() {
-		return valuesByVariable.entrySet().iterator();
+	public Iterator<ValueList> iterator() {
+		return valueListByVariable.values().iterator();
 	}
 	
 	@Override
 	public String toString() {
-		return "Rule:" + valuesByVariable.toString();
+		return "Rule:" + valueListByVariable.values().toString();
 	}
 }

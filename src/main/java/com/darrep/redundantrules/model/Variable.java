@@ -33,6 +33,8 @@ public class Variable {
 		return "Var-" + id;
 	}
 
+	// --------------------------------------------------------------------------
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -54,10 +56,4 @@ public class Variable {
 			return false;
 		return true;
 	}
-	
-	// --------------------------------------------------------------------------
-
-	
-	
-	
 }

@@ -17,8 +17,8 @@ public abstract class AbstractDetectorTest
     private static final int SMALL_DOMAIN_SIZE = 5;
     private static final int SMALL_NUMBER_OF_RULES = 5;
 
-    private static final int MEDIUM_NUMBER_OF_VARIABLES = 5;
-    private static final int MEDIUM_DOMAIN_SIZE = 10;
+    private static final int MEDIUM_NUMBER_OF_VARIABLES = 7;
+    private static final int MEDIUM_DOMAIN_SIZE = 7;
     private static final int MEDIUM_NUMBER_OF_RULES = 10;
 
     private static final int LARGE_NUMBER_OF_VARIABLES = 10;
