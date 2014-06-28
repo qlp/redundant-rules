@@ -27,9 +27,9 @@ public abstract class AbstractDetectorTest
 
 	private RedundantRuleDetector detector;
 	
-    private static RuleList largeRuleList;
-    private static RuleList mediumRuleList;
     private static RuleList smallRuleList;
+    private static RuleList mediumRuleList;
+    private static RuleList largeRuleList;
     
     @BeforeClass
     public static void initRules() {

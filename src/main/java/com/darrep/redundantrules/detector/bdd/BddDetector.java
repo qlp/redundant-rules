@@ -18,7 +18,7 @@ import com.darrep.redundantrules.model.ValueList;
 public class BddDetector
 implements RedundantRuleDetector {
 	
-	private static final int NUMBER_OF_NODES = 10 * 1024 * 1024;
+	private static final int NUMBER_OF_NODES = 1024 * 1024;
 	private static final double CACHE_SIZE_RATIO = 0.1;
 	private static final int CACHE_SIZE = (int)(NUMBER_OF_NODES * CACHE_SIZE_RATIO);
 	private static final int BDD_VARIABLE_COUNT_GROWTH = 10;
